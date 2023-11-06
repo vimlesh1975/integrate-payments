@@ -1,32 +1,33 @@
-import Head from "next/head";
-import Image from "next/image";
-import { Element } from "../components/Element";
-import { Navbar } from "../components/Navbar";
-import styles from "../styles/Home.module.css";
+import Head from 'next/head';
+import Image from 'next/image';
+import { Element } from '../components/Element';
+import { Navbar } from '../components/Navbar';
+import styles from '../styles/Home.module.css';
 
 export default function Home() {
   const makePayment = async () => {
-    console.log("here...");
+    console.log('here...');
     const res = await initializeRazorpay();
 
     if (!res) {
-      alert("Razorpay SDK Failed to load");
+      alert('Razorpay SDK Failed to load');
       return;
     }
 
     // Make API call to the serverless API
-    const data = await fetch("/api/razorpay", { method: "POST" }).then((t) =>
+    const data = await fetch('/api/razorpay', { method: 'POST' }).then((t) =>
       t.json()
     );
     console.log(data);
     var options = {
       key: process.env.RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
-      name: "Manu Arora Pvt Ltd",
+      name: 'Vimlesh Kumar Payment',
       currency: data.currency,
       amount: data.amount,
       order_id: data.id,
-      description: "Thankyou for your test donation",
-      image: "https://manuarora.in/logo.png",
+      description: 'Thankyou for your test donation',
+      image:
+        'https://lh3.googleusercontent.com/ogw/AKPQZvxLhB0d6HyuwCZe2v1cbAIYCZrNwbDrZ9JOKsj2-mQ=s32-c-mo',
       handler: function (response) {
         // Validate payment at server - using webhooks is a better idea.
         alert(response.razorpay_payment_id);
@@ -34,9 +35,9 @@ export default function Home() {
         alert(response.razorpay_signature);
       },
       prefill: {
-        name: "Manu Arora",
-        email: "manuarorawork@gmail.com",
-        contact: "9999999999",
+        name: 'Vimlesh Kumar',
+        email: 'vimlesh1975@gmail.com',
+        contact: '+917738187885',
       },
     };
 
@@ -45,8 +46,8 @@ export default function Home() {
   };
   const initializeRazorpay = () => {
     return new Promise((resolve) => {
-      const script = document.createElement("script");
-      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
       // document.body.appendChild(script);
 
       script.onload = () => {
@@ -86,10 +87,10 @@ const Hero = ({ onClick }) => {
     <div className="relative z-10 flex flex-col md:flex-row mt-10 items-center  max-w-6xl justify-evenly mx-auto">
       <div className="md:w-1/3 mb-20 md:mb-0 mx-10">
         <h1 className=" text-white font-bold text-5xl mb-10">
-          Integrate{" "}
+          Integrate{' '}
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
             payments
-          </span>{" "}
+          </span>{' '}
           in less than 10 minutes.
         </h1>
         <p className="text-sm text-gray-300 font-light tracking-wide w-[300px] mb-10">
